@@ -61,7 +61,7 @@ extern "C" {
 /* IDLE for this long → main line shows local HH:MM instead of "IDLE" */
 #define SIGNAL_OLED_IDLE_CLOCK_MS   60000
 
-/* No LAN/UART for this long → top-right shows disconnect tag */
+/* Unused — main OLED line shows DISCONNECT immediately when PC bridge is offline */
 #define SIGNAL_OLED_DISCONNECT_TAG_MS 60000
 
 /* ---------------------------------------------------------------------------

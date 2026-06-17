@@ -28,8 +28,6 @@
 ***********************************************************/
 #define PRINTF_FREE_HEAP_TTIME (10 * 1000)
 #define DISP_NET_STATUS_TIME   (1 * 1000)
-/* Max AI reply forwarded to PC (matches signal_transport ASR line budget) */
-#define AI_REPLY_BUF_MAX       512
 
 /***********************************************************
 ***********************typedef define***********************
@@ -43,8 +41,6 @@
 ***********************variable define**********************
 ***********************************************************/
 static TIMER_ID sg_printf_heap_tm;
-static char sg_ai_reply_buf[AI_REPLY_BUF_MAX + 1];
-static uint32_t sg_ai_reply_len = 0;
 
 #if defined(ENABLE_COMP_AI_DISPLAY) && (ENABLE_COMP_AI_DISPLAY == 1)
 static AI_UI_WIFI_STATUS_E sg_wifi_status = AI_UI_WIFI_STATUS_DISCONNECTED;
@@ -112,58 +108,6 @@ static void __display_status_tm_cb(TIMER_ID timer_id, void *arg)
 
 #endif
 
-/**
- * @brief Clear accumulated AI reply buffer
- * @return none
- */
-static void __ai_reply_buf_reset(void)
-{
-    sg_ai_reply_len = 0;
-    sg_ai_reply_buf[0] = '\0';
-}
-
-/**
- * @brief Append NLG chunk to AI reply buffer
- * @param[in] data UTF-8 text chunk
- * @param[in] len chunk length in bytes
- * @return none
- */
-static void __ai_reply_buf_append(const char *data, uint32_t len)
-{
-    uint32_t space = 0;
-
-    if (data == NULL || len == 0) {
-        return;
-    }
-
-    space = AI_REPLY_BUF_MAX - sg_ai_reply_len;
-    if (space == 0) {
-        return;
-    }
-    if (len > space) {
-        len = space;
-    }
-
-    memcpy(sg_ai_reply_buf + sg_ai_reply_len, data, len);
-    sg_ai_reply_len += len;
-    sg_ai_reply_buf[sg_ai_reply_len] = '\0';
-}
-
-/**
- * @brief Send full AI reply to PC input bridge
- * @return none
- */
-static void __ai_reply_send_to_pc(void)
-{
-    if (sg_ai_reply_len == 0) {
-        return;
-    }
-
-    PR_INFO("[chat_bot] AI reply -> PC (%u bytes)", sg_ai_reply_len);
-    signal_transport_send_asr(sg_ai_reply_buf, sg_ai_reply_len);
-    __ai_reply_buf_reset();
-}
-
 static void __ai_chat_handle_event(AI_NOTIFY_EVENT_T *event)
 {
     AI_NOTIFY_TEXT_T *text = NULL;
@@ -174,30 +118,11 @@ static void __ai_chat_handle_event(AI_NOTIFY_EVENT_T *event)
 
     switch (event->type) {
     case AI_USER_EVT_ASR_OK:
-        /* User speech only — cloud Agent handles it; PC gets NLG on TEXT_STREAM_STOP */
-        break;
-    case AI_USER_EVT_TEXT_STREAM_START:
-        __ai_reply_buf_reset();
         text = (AI_NOTIFY_TEXT_T *)event->data;
         if (text != NULL && text->data != NULL && text->datalen > 0) {
-            __ai_reply_buf_append(text->data, text->datalen);
+            PR_INFO("[chat_bot] user ASR -> PC (%u bytes)", text->datalen);
+            signal_transport_send_asr(text->data, text->datalen);
         }
-        break;
-    case AI_USER_EVT_TEXT_STREAM_DATA:
-        text = (AI_NOTIFY_TEXT_T *)event->data;
-        if (text != NULL && text->data != NULL && text->datalen > 0) {
-            __ai_reply_buf_append(text->data, text->datalen);
-        }
-        break;
-    case AI_USER_EVT_TEXT_STREAM_STOP:
-        text = (AI_NOTIFY_TEXT_T *)event->data;
-        if (text != NULL && text->data != NULL && text->datalen > 0) {
-            __ai_reply_buf_append(text->data, text->datalen);
-        }
-        __ai_reply_send_to_pc();
-        break;
-    case AI_USER_EVT_TEXT_STREAM_ABORT:
-        __ai_reply_buf_reset();
         break;
 #if defined(ENABLE_PRINTER) && (ENABLE_PRINTER == 1)
     case AI_USER_EVT_GENERATE_PICTURE:

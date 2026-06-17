@@ -1,8 +1,8 @@
 /**
  * @file signal_oled.c
  * @brief SSD1306 OLED UI — concise status + active link (BT or UART)
- * @version 1.1
- * @date 2026-06-16
+ * @version 1.2
+ * @date 2026-06-17
  * @copyright Copyright (c) Tuya Inc.
  */
 #include "signal_oled.h"
@@ -28,7 +28,7 @@ static MUTEX_HANDLE s_link_mutex = NULL;
 static SIGNAL_OLED_LINK_T s_link = {0};
 static AGENT_STATUS_E s_prev_status = AGENT_STATUS_IDLE;
 static uint32_t s_idle_since_ms = 0;
-static uint32_t s_unlink_since_ms = 0;
+static bool s_prev_linked = false;
 
 /* ---------------------------------------------------------------------------
  * Function implementations
@@ -103,19 +103,6 @@ static bool __link_connected(const SIGNAL_OLED_LINK_T *link)
         return true;
     }
     return false;
-}
-
-/**
- * @brief Top-right disconnect tag after unlink timeout
- * @param[in] now_ms monotonic tick in ms
- * @return true when corner tag should show DISCONN
- */
-static bool __unlink_corner_due(uint32_t now_ms)
-{
-    if (s_unlink_since_ms == 0) {
-        return false;
-    }
-    return (now_ms - s_unlink_since_ms) >= SIGNAL_OLED_DISCONNECT_TAG_MS;
 }
 
 /**
@@ -257,32 +244,30 @@ static void __oled_refresh_frame(void)
     }
 
     linked = __link_connected(&link);
-    if (linked) {
-        s_unlink_since_ms = 0;
-    } else if (s_unlink_since_ms == 0) {
-        s_unlink_since_ms = now_ms;
-    }
 
-    if (status == AGENT_STATUS_IDLE) {
-        if (s_prev_status != AGENT_STATUS_IDLE) {
+    if (!linked) {
+        main_label = "DISCONNECT";
+    } else {
+        if (!s_prev_linked) {
             s_idle_since_ms = now_ms;
         }
-    } else {
-        s_idle_since_ms = now_ms;
-    }
-    s_prev_status = status;
+        if (status == AGENT_STATUS_IDLE) {
+            if (s_prev_status != AGENT_STATUS_IDLE) {
+                s_idle_since_ms = now_ms;
+            }
+        } else {
+            s_idle_since_ms = now_ms;
+        }
+        s_prev_status = status;
 
-    if (__oled_idle_clock_due(status, now_ms) && __format_local_hhmm(clock_buf, sizeof(clock_buf))) {
-        main_label = clock_buf;
-    } else {
-        main_label = __status_label(status);
-    }
-
-    if (linked) {
+        if (__oled_idle_clock_due(status, now_ms) && __format_local_hhmm(clock_buf, sizeof(clock_buf))) {
+            main_label = clock_buf;
+        } else {
+            main_label = __status_label(status);
+        }
         link_label = __active_link_label(&link);
-    } else if (__unlink_corner_due(now_ms)) {
-        link_label = "DISCONN";
     }
+    s_prev_linked = linked;
 
     u8g2_ClearBuffer(&s_u8g2);
     __draw_link_tag_top_right(link_label);
