@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      { "command": ".cursor/hooks/signal-light.sh start" }
+    ],
+    "sessionEnd": [
+      { "command": ".cursor/hooks/signal-light.sh end" }
+    ],
+    "preToolUse": [
+      { "command": ".cursor/hooks/signal-light.sh tool" }
+    ],
+    "postToolUseFailure": [
+      { "command": ".cursor/hooks/signal-light.sh fail" }
+    ],
+    "beforeShellExecution": [
+      { "command": ".cursor/hooks/signal-light.sh shell" }
+    ],
+    "afterShellExecution": [
+      { "command": ".cursor/hooks/signal-light.sh after_shell" }
+    ],
+    "afterAgentThought": [
+      { "command": ".cursor/hooks/signal-light.sh thought" }
+    ],
+    "subagentStart": [
+      { "command": ".cursor/hooks/signal-light.sh tool" }
+    ],
+    "stop": [
+      { "command": ".cursor/hooks/signal-light.sh stop" }
+    ]
+  }
+}

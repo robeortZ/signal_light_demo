@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.tuyaopen.dev/status.v1.json",
+  "schemaVersion": 1,
+  "lifecycle": "scaffolded",
+  "scaffold": {
+    "method": "demo-clone",
+    "sourceTemplate": "base",
+    "scaffoldedAt": "2026-06-15T09:22:14.532Z",
+    "sdkRoot": "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK",
+    "demoId": "tuya-ai-your-chat-bot",
+    "boardId": "tuya-t5ai-core",
+    "kconfigId": "TUYA_T5AI_CORE",
+    "configFile": "config/TUYA_T5AI_CORE.config"
+  },
+  "build": {
+    "lastResult": "failure",
+    "lastBuildAt": "2026-06-15T11:59:25.917Z",
+    "artifact": null,
+    "warnings": 0,
+    "errors": 41
+  },
+  "flash": {
+    "lastResult": "failure",
+    "lastFlashAt": "2026-06-15T10:21:51.208Z",
+    "target": null,
+    "port": null
+  },
+  "lastChecked": {
+    "tos": null,
+    "env": null
+  }
+}

@@ -1,0 +1,33 @@
+menu "configure app (signal_light_demo) "
+
+config TUYA_PRODUCT_ID
+    string "product ID of project"
+    default "p320pepzvmm1ghse"
+
+config ENABLE_BATTERY
+    bool "enable the battery module"
+    default n
+
+config APP_NEED_AI_COMPONENTS
+    bool
+    default y
+    select ENABLE_AI_COMPONENTS
+
+config SIGNAL_BRIDGE_HOST
+    string "PC bridge LAN IP (fallback when UDP discovery silent)"
+    default "192.168.1.100"
+    help
+      Fallback IP when tools/run_bridge.sh UDP beacon is not received.
+      With discovery enabled (default), the device learns the PC IP automatically.
+
+config SIGNAL_BRIDGE_PORT
+    int "PC bridge WebSocket port"
+    default 8765
+
+config SIGNAL_DISCOVERY_PORT
+    int "UDP discovery listen/beacon port"
+    default 8766
+
+rsource "src/display2/Kconfig"
+
+endmenu

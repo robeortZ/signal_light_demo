@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.tuyaopen.dev/project.v1.json",
+  "schemaVersion": 1,
+  "name": "signal_light_demo",
+  "description": "在 **TUYA T5AI CORE** 开发板上，做一个桌面「AI 编程助手」：\n\n- **语音听写**：长按说话 → 云端 ASR → 文字经 UART 注入 PC 当前输入框（无需切换窗口打字）\n- **状态灯**：红 / 黄 / 绿 LED 经 UART 与 PC 上 **Claude Code / Codex** 联动，抬头即可知 Agent 在干什么\n- **状态屏（可选）**：128×64 SSD1306 OLED 显示 Wi-Fi、聆听中、Claude 状态等",
+  "version": "0.1.0",
+  "type": "tuyaopen-app",
+  "framework": "base",
+  "createdAt": "2026-06-15T09:22:14.532Z",
+  "createdBy": {
+    "tool": "tuyaopen-ide",
+    "version": "0.0.8"
+  },
+  "updatedAt": "2026-06-15T09:22:14.532Z",
+  "license": "Apache-2.0",
+  "tags": [],
+  "ai": {
+    "agents": [
+      "cursor",
+      "claude-code"
+    ],
+    "skills": [],
+    "notes": "Canonical project descriptor consumed by AI coding agents. Update `version`, `tags`, and `ai.skills` as the project evolves. Do not delete `schemaVersion` — the IDE uses it to migrate."
+  }
+}

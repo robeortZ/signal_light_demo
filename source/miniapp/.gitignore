@@ -1,0 +1,10 @@
+# Native binaries are platform-locked (esbuild, @swc/core, etc.). Never
+# commit or copy across OSes — run `npm install` on the target platform.
+node_modules/
+dist/
+.cache/
+.DS_Store
+
+# Lockfile is regenerated on each platform install.
+package-lock.json
+yarn.lock

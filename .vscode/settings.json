@@ -1,0 +1,9 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/source/embedded",
+    "cmake.buildDirectory": "${workspaceFolder}/source/embedded/.build",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/source/embedded/.build/compile_commands.json",
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c"
+    }
+}

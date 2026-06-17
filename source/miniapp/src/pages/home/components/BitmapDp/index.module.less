@@ -1,0 +1,160 @@
+/* Bitmap (fault) DP — Tuya design language */
+
+.bitmapCard {
+  display: flex;
+  flex-direction: column;
+  padding: 28rpx 28rpx 24rpx;
+  background: var(--app-B1, #ffffff);
+  border-radius: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+.bitmapHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18rpx;
+}
+.bitmapIcon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 22rpx;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, #f44747 22%, transparent),
+    color-mix(in srgb, #f44747 8%, transparent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+}
+.bitmapIconGlyph {
+  font-size: 36rpx;
+  line-height: 1;
+  color: #f44747;
+}
+.bitmapTitleWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.bitmapName {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: var(--app-T1, #1a1a1a);
+}
+.bitmapCode {
+  font-size: 22rpx;
+  color: var(--app-T3, #999999);
+  margin-top: 4rpx;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  letter-spacing: 0.4rpx;
+}
+
+/* Active-bit counter (e.g. 0/8 in calm state, lights up if any flag set) */
+.bitmapState {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 8rpx 18rpx;
+  border-radius: 16rpx;
+  background: var(--app-B2, #f5f5f5);
+}
+.bitmapStateActive {
+  background: color-mix(in srgb, #f44747 14%, transparent);
+}
+.bitmapStateCount {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: var(--app-T2, #666666);
+  line-height: 1;
+}
+.bitmapStateActive .bitmapStateCount {
+  color: #f44747;
+}
+.bitmapStateLabel {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: var(--app-T3, #999999);
+  margin-left: 4rpx;
+}
+
+/* Hex / binary readout */
+.bitmapValueRow {
+  display: flex;
+  flex-direction: row;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+.bitmapValueChip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--app-B2, #f5f5f5);
+  border-radius: 14rpx;
+  padding: 10rpx 16rpx;
+}
+.bitmapValueLabel {
+  font-size: 20rpx;
+  font-weight: 700;
+  color: var(--app-T3, #999999);
+  letter-spacing: 1rpx;
+  margin-right: 10rpx;
+}
+.bitmapValueText {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--app-T1, #1a1a1a);
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  letter-spacing: 0.6rpx;
+}
+
+/* Bit chips — pill-style toggle, no checkboxes */
+.bitmapBits {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+.bitmapBit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--app-B2, #f5f5f5);
+  border: 2rpx solid transparent;
+  border-radius: 999rpx;
+  padding: 10rpx 20rpx 10rpx 12rpx;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.bitmapBitActive {
+  background: linear-gradient(135deg, #f44747 0%, #ff7a45 100%);
+  box-shadow: 0 6rpx 16rpx color-mix(in srgb, #f44747 32%, transparent);
+}
+.bitmapBitReadOnly {
+  opacity: 0.7;
+}
+.bitmapBitIdx {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  font-size: 20rpx;
+  font-weight: 700;
+  color: var(--app-T3, #999999);
+  text-align: center;
+  line-height: 32rpx;
+  margin-right: 10rpx;
+}
+.bitmapBitActive .bitmapBitIdx {
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+.bitmapBitLabel {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: var(--app-T2, #666666);
+  letter-spacing: 0.3rpx;
+}
+.bitmapBitActive .bitmapBitLabel {
+  color: #ffffff;
+  font-weight: 600;
+}

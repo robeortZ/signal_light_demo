@@ -1,0 +1,36 @@
+{
+  "configurations": [
+    {
+      "name": "TuyaOpen",
+      "compileCommands": "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/compile_commands.json",
+      "includePath": [
+        "${workspaceFolder}/source/embedded/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/common/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tal_system/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tal_wifi/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tal_bluetooth/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tal_network/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tal_security/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tal_kv/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tal_cli/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tal_driver/uart",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/libcjson/cJSON",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/libtls/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/libhttp/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/libmqtt/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/liblvgl/v9",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/liblvgl/v9/lvgl",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/audio_player/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tal_image/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tuya_cloud_service/**",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/tuya_ai_service/**",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/src/peripherals/**/include",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/platform/T5/tuyaos/tuyaos_adapter/include/**",
+        "/Users/wuchang/TuyaOpenIDE/TuyaOpenSDK/boards/T5/**"
+      ],
+      "defines": [],
+      "intelliSenseMode": "gcc-arm"
+    }
+  ],
+  "version": 4
+}

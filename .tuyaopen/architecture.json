@@ -1,0 +1,75 @@
+{
+  "$schema": "https://schemas.tuyaopen.dev/architecture.v1.json",
+  "schemaVersion": 1,
+  "surfaces": {
+    "embedded": {
+      "enabled": true,
+      "path": "source/embedded",
+      "scaffolded": true,
+      "platform": "t5",
+      "framework": "base",
+      "board": null,
+      "chip": null,
+      "entrypoint": {
+        "file": "source/embedded/src/tuya_app_main.c",
+        "symbol": "tuya_app_main"
+      },
+      "rtos": {
+        "kind": "tuya-tal",
+        "tasks": [
+          {
+            "name": "tuya_app_main",
+            "stackDepth": "1024 * 4",
+            "priority": "THREAD_PRIO_1"
+          }
+        ]
+      },
+      "memory": {
+        "stack": "1024*4",
+        "heap": null
+      },
+      "hardware": {
+        "peripherals": ["gpio_led", "ssd1306_oled", "ble", "uart2"],
+        "interfaces": ["ble_gatt", "uart"]
+      }
+    },
+    "miniapp": {
+      "enabled": true,
+      "path": "source/miniapp",
+      "scaffolded": false,
+      "panelKind": null,
+      "entrypoint": null
+    }
+  },
+  "modules": [
+    {
+      "id": "app",
+      "name": "Embedded application",
+      "kind": "executable",
+      "language": "C",
+      "sources": [
+        "source/embedded/src/"
+      ],
+      "surface": "embedded"
+    },
+    {
+      "id": "panel",
+      "name": "Mini-app panel",
+      "kind": "component",
+      "language": "TypeScript",
+      "sources": [
+        "source/miniapp/"
+      ],
+      "surface": "miniapp"
+    }
+  ],
+  "components": [],
+  "dependencies": [
+    {
+      "id": "tuyaopen-core",
+      "version": "main",
+      "kind": "core",
+      "surface": "embedded"
+    }
+  ]
+}

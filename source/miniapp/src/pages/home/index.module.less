@@ -1,0 +1,473 @@
+/* ─────────────────────────────────────────────────────────────
+   Smart Panel — Tuya design language
+   Modeled after Tuya-Community/tuya-miniapp-demo:
+   - rpx units throughout
+   - --app-B1 (card), --app-B2 (page), --app-T1/T2/T3 (text), --app-M4 (accent)
+   - 16px / 24rpx radius cards, 32rpx outer padding
+   - Switch components untouched — only their wrappers are restyled
+   ──────────────────────────────────────────────────────────── */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 32rpx 32rpx 96rpx;
+  min-height: 100vh;
+  background-color: var(--app-B2, #f5f5f5);
+  box-sizing: border-box;
+}
+
+/* ─── Hero panel: device illustration + status ─── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 32rpx;
+  padding: 40rpx 32rpx 36rpx;
+  margin-bottom: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 280rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.06);
+  transition: background 0.4s ease;
+}
+.heroOn {
+  background:
+    radial-gradient(120% 80% at 18% 0%, rgba(255,255,255,0.22), transparent 60%),
+    linear-gradient(135deg, #6366f1 0%, #22d3ee 100%);
+}
+.heroOff {
+  background:
+    radial-gradient(120% 80% at 18% 0%, rgba(255,255,255,0.06), transparent 60%),
+    linear-gradient(135deg, #475569 0%, #1e293b 100%);
+}
+.heroHalo {
+  position: absolute;
+  top: -120rpx;
+  right: -120rpx;
+  width: 380rpx;
+  height: 380rpx;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.32), transparent);
+  pointer-events: none;
+}
+.heroHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28rpx;
+  z-index: 1;
+}
+.heroBrand {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.4rpx;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.78);
+  margin-top: 4rpx;
+  letter-spacing: 2rpx;
+  text-transform: uppercase;
+}
+.heroIcon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 28rpx;
+  background: rgba(255, 255, 255, 0.22);
+  border: 2rpx solid rgba(255, 255, 255, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.heroIconGlyph {
+  font-size: 48rpx;
+  color: #ffffff;
+  line-height: 1;
+}
+.heroName {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 8rpx;
+  z-index: 1;
+}
+.heroState {
+  font-size: 64rpx;
+  font-weight: 800;
+  letter-spacing: 4rpx;
+  color: #ffffff;
+  z-index: 1;
+  text-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.14);
+}
+.heroToggle {
+  position: absolute;
+  right: 32rpx;
+  bottom: 36rpx;
+  z-index: 2;
+}
+
+/* Status pill — sits in the hero header */
+.statusPill {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1rpx solid rgba(255, 255, 255, 0.28);
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+}
+.dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #6dffaa;
+  box-shadow: 0 0 0 6rpx rgba(109, 255, 170, 0.24);
+  margin-right: 10rpx;
+}
+.statusText {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.6rpx;
+}
+.statusPillPreview .dot {
+  background: #ffd166;
+  box-shadow: 0 0 0 6rpx rgba(255, 209, 102, 0.24);
+}
+
+/* ─── Section header ─── */
+.sectionHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 28rpx 8rpx 16rpx;
+}
+.sectionTitle {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--app-T1, #1a1a1a);
+  letter-spacing: 0.4rpx;
+}
+.sectionAccent {
+  width: 8rpx;
+  height: 28rpx;
+  border-radius: 4rpx;
+  background: var(--app-M4, #ff7a45);
+  margin-right: 14rpx;
+}
+
+/* ─── Generic card (bool / readonly / enum / string) ─── */
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--app-B1, #ffffff);
+  border-radius: 24rpx;
+  padding: 28rpx 28rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.cardIcon {
+  flex-shrink: 0;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 22rpx;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--app-M4, #ff7a45) 14%, transparent),
+    color-mix(in srgb, var(--app-M4, #ff7a45) 6%, transparent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+}
+.cardIconGlyph {
+  font-size: 36rpx;
+  line-height: 1;
+  color: var(--app-M4, #ff7a45);
+}
+.cardBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.cardName {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: var(--app-T1, #1a1a1a);
+  letter-spacing: 0.2rpx;
+}
+.cardMeta {
+  font-size: 22rpx;
+  color: var(--app-T3, #999999);
+  margin-top: 6rpx;
+  letter-spacing: 0.3rpx;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+.cardValue {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--app-M4, #ff7a45);
+}
+.cardRaw {
+  font-size: 26rpx;
+  color: var(--app-T2, #666666);
+  margin-top: 10rpx;
+  word-break: break-all;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  background: var(--app-B2, #f5f5f5);
+  padding: 10rpx 14rpx;
+  border-radius: 12rpx;
+}
+
+/* Legacy compact bar — kept for callers */
+.bar {
+  height: 12rpx;
+  border-radius: 6rpx;
+  background: var(--app-B2, #e2e8f0);
+  overflow: hidden;
+}
+.barFill {
+  height: 100%;
+  border-radius: 6rpx;
+  background: var(--app-M4, #ff7a45);
+  transition: width 0.4s ease;
+}
+.barBattery {
+  background: linear-gradient(90deg, #34d399, #10b981);
+}
+
+/* ─── Read-only progress (used in sliderCard) ─── */
+.barLarge {
+  position: relative;
+  height: 36rpx;
+  border-radius: 18rpx;
+  background: var(--app-B2, #f1f5f9);
+  overflow: hidden;
+  margin: 0 8rpx;
+}
+.barLargeFill {
+  height: 100%;
+  border-radius: 18rpx;
+  background: linear-gradient(90deg, var(--app-M4, #ff7a45), #ffb892);
+  transition: width 0.4s ease;
+  box-shadow: 0 0 16rpx color-mix(in srgb, var(--app-M4, #ff7a45) 60%, transparent);
+}
+.sliderRangeFlat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 12rpx;
+  padding: 0 8rpx;
+}
+
+/* ─── Slider card ─── */
+.sliderCard {
+  background: var(--app-B1, #ffffff);
+  border-radius: 24rpx;
+  padding: 32rpx 28rpx 28rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+.sliderHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.sliderName {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: var(--app-T1, #1a1a1a);
+  margin-left: 8rpx;
+}
+.sliderValueWrap {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 8rpx 18rpx;
+  border-radius: 16rpx;
+  background: color-mix(in srgb, var(--app-M4, #ff7a45) 10%, transparent);
+}
+.sliderValueBig {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--app-M4, #ff7a45);
+  line-height: 1;
+  letter-spacing: -0.5rpx;
+}
+.sliderValueBattery {
+  color: #10b981;
+}
+.sliderValueUnit {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--app-M4, #ff7a45) 80%, var(--app-T2, #666));
+  margin-left: 4rpx;
+}
+.sliderValueBatteryUnit {
+  color: #34d399;
+}
+.sliderRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.sliderTrack {
+  flex: 1;
+  min-width: 0;
+  margin: 0 16rpx;
+}
+.adjBtn {
+  flex-shrink: 0;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
+  background: var(--app-B2, #f5f5f5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.adjGlyph {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--app-T2, #666666);
+  line-height: 1;
+}
+.sliderRange {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 16rpx;
+  padding-left: 80rpx;
+  padding-right: 80rpx;
+}
+.sliderRangeLabel {
+  font-size: 22rpx;
+  color: var(--app-T3, #999999);
+  font-weight: 500;
+  letter-spacing: 0.4rpx;
+}
+
+/* ─── Enum pills ─── */
+.pillRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 12rpx;
+}
+.pill {
+  padding: 12rpx 26rpx;
+  border-radius: 999rpx;
+  background: var(--app-B2, #f5f5f5);
+}
+.pillActive {
+  background: var(--app-M4, #ff7a45);
+  box-shadow: 0 8rpx 20rpx color-mix(in srgb, var(--app-M4, #ff7a45) 36%, transparent);
+}
+.pillText {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: var(--app-T2, #666666);
+}
+.pillTextActive {
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.4rpx;
+}
+
+/* ─── Empty state ─── */
+.emptyCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--app-B1, #ffffff);
+  border-radius: 24rpx;
+  padding: 80rpx 40rpx;
+  margin-top: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+.emptyIcon {
+  font-size: 96rpx;
+  margin-bottom: 24rpx;
+}
+.emptyTitle {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--app-T1, #1a1a1a);
+  margin-bottom: 12rpx;
+}
+.emptyHint {
+  font-size: 24rpx;
+  color: var(--app-T2, #666666);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ─── String DP — input + Send button ─── */
+.stringHeaderRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.stringLen {
+  font-size: 22rpx;
+  color: var(--app-T3, #999999);
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+.stringInputRow {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 12rpx;
+  margin-top: 12rpx;
+}
+.stringInput {
+  flex: 1;
+  background: var(--app-B2, #f5f5f5);
+  border: 2rpx solid transparent;
+  border-radius: 14rpx;
+  padding: 14rpx 18rpx;
+  color: var(--app-T1, #1a1a1a);
+  font-size: 26rpx;
+  box-sizing: border-box;
+}
+.stringSendBtn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  background: linear-gradient(135deg, var(--app-M4, #ff7a45) 0%, #ff9f6e 100%);
+  border-radius: 14rpx;
+  box-shadow: 0 6rpx 16rpx color-mix(in srgb, var(--app-M4, #ff7a45) 30%, transparent);
+}
+.stringSendBtnSuccess {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  box-shadow: 0 6rpx 16rpx color-mix(in srgb, #10b981 30%, transparent);
+}
+.stringSendBtnText {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #ffffff;
+}
+.stringError {
+  font-size: 22rpx;
+  color: #f44747;
+  margin-top: 8rpx;
+}

@@ -1,0 +1,23 @@
+{
+  "name": "tuyaopen-miniapp",
+  "type": "panel-app",
+  "ownerType": "tuya-official",
+  "appid": "",
+  "projectId": "",
+  "appVersion": "1.0.0",
+  "i18n": false,
+  "publicRoot": "./cdn",
+  "miniprogramRoot": "./dist/tuya",
+  "dependencies": {
+    "BaseKit": "3.0.0",
+    "MiniKit": "3.1.0",
+    "DeviceKit": "4.6.1",
+    "BizKit": "4.5.1",
+    "HomeKit": "3.1.4"
+  },
+  "baseversion": "2.30.18",
+  "devMode": "ray",
+  "compileType": "miniprogram",
+  "projectname": "tuyaopen-miniapp",
+  "description": "TuyaOpen IDE generated miniapp panel"
+}
