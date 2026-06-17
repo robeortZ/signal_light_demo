@@ -233,3 +233,4 @@ python3 tools/signal_mock_client.py working
 - AI Agent 开发说明：[`AGENTS.md`](AGENTS.md)
 - 板级引脚与保留 GPIO：`.tuyaopen/ide/platform.json`、`.tuyaopen/ide/board.json`
 - Mini App：`source/miniapp/README.md`
+
