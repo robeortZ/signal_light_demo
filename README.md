@@ -2,6 +2,16 @@
 
 在 **TUYA T5AI CORE** 开发板上实现的桌面「AI 编程助手」硬件伴侣：抬头看灯/屏即知 Cursor Agent 在干什么，长按说话即可把听写文字注入 Mac 当前输入框。
 
+## 实物展示
+
+![实物展示](source/embedded/doc/shiwu.jpg)
+
+> **3D 模型文件**：核心板红绿灯外壳的 3D 模型位于 [`source/embedded/doc/`](source/embedded/doc/)：
+> - 渲染预览：[`source/embedded/doc/3D模型.png`](source/embedded/doc/3D模型.png)
+> - STEP 源文件：[`source/embedded/doc/核心板红绿灯.step`](source/embedded/doc/核心板红绿灯.step)
+
+---
+
 | 能力 | 说明 |
 |------|------|
 | **状态灯** | 绿 / 黄 / 红 LED，与 Cursor / Claude Code 生命周期联动 |
